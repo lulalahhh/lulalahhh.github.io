@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>聊天室项目 | 夜晚星漫漫</title>
+    <meta name="author" content="清风" />
+    <meta name="description" content="一个热爱生活,向往自由的男孩子" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>夜晚星漫漫</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;夜晚星漫漫</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>聊天室项目</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/4/20
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E9%A1%B9%E7%9B%AE/" style="color: #ff7d73">
+                    项目
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <h5 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h5><p>旨在为校园内的学生提供一个实时交流的平台，主要有以下几项功能：联系人列表，建群，单聊群聊，成员列表等，支持图片，文字，语音，表情包等消息类型，支持回复与跳转，艾特成员。</p>
+<span id="more"></span>
+<h5 id="切面是什么？"><a href="#切面是什么？" class="headerlink" title="切面是什么？"></a>切面是什么？</h5><hr>
+<h2 id="分布式注解锁"><a href="#分布式注解锁" class="headerlink" title="分布式注解锁"></a>分布式注解锁</h2><p>我写了个分布式锁的工具类lockService,把加锁,业务代码,解锁封装到一个executeWithLock方法中,用的时候只需要调用这个方法就行,业务代码用在supplier写就行,supplier他不传参但是返回参数.<br>后来做了优化,用注解来实现分布式锁,创建注解@RedissonLock,这样方便多了,只需要在方法上加注解就行,注解里面可以指定锁的key,过期时间等</p>
+<p>实现切面RedissonLockAspect,用环绕通知方式,在方法上面加around注解,切点为这个@RedissonLock注解的地址.<br>获取被代理的方法对象,从方法上获取 RedissonLock 注解实例,获取锁的key,最后调用编写的lockService 的 executeWithLock方法，使用锁执行被代理的方法</p>
+<pre><code>@Slf4j
+@Aspect
+@Component
+@Order(0)//确保比事务注解先执行，分布式锁在事务外
+public class RedissonLockAspect &#123;
+    @Autowired
+    private LockService lockService;
+
+    @Around(&quot;@annotation(com.abin.mallchat.common.common.annotation.RedissonLock)&quot;)
+    public Object around(ProceedingJoinPoint joinPoint) throws Throwable &#123;
+        Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
+        RedissonLock redissonLock = method.getAnnotation(RedissonLock.class);
+        String prefix = StrUtil.isBlank(redissonLock.prefixKey()) ? SpElUtils.getMethodKey(method) : redissonLock.prefixKey();//默认方法限定名+注解排名（可能多个）
+        String key = SpElUtils.parseSpEl(method, joinPoint.getArgs(), redissonLock.key());
+        return lockService.executeWithLockThrows(prefix + &quot;:&quot; + key, redissonLock.waitTime(), redissonLock.unit(), joinPoint::proceed);
+    &#125;
+&#125;
+</code></pre>
+<hr>
+<h2 id="统一管理项目的线程池"><a href="#统一管理项目的线程池" class="headerlink" title="统一管理项目的线程池"></a>统一管理项目的线程池</h2><p>频繁的创建、销毁线程和线程池，会给系统带来额外的开销。未经池化及统一管理的线程，则会导致系统内线程数上限不可控。<br>因此，在项目中，应当统一管理项目的线程池，并在必要时进行线程池的扩容和缩容。<br>我定义了一个ThreadPoolConfig类，创建我们项目统一的线程池，并交给spring管理。一个是项目共用线程池, 一个是websocket通信线程池.<br>同时实现AsyncConfigurer,设置了@async注解也使用我们的统一线程池，这样方便统一管理。<br>我们的线程池没有用Excutors快速创建。是因为Excutors创建的线程池用的无界队列，有oom的风险</p>
+<pre><code>public ThreadPoolTaskExecutor mallchatExecutor() &#123;
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(10);
+        executor.setMaxPoolSize(10);
+        executor.setQueueCapacity(200);
+        executor.setThreadNamePrefix(&quot;mallchat-executor-&quot;);
+        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());//满了调用线程执行，认为重要任务
+        executor.initialize();
+        return executor;
+&#125;
+</code></pre>
+<p>用的是ThreadPoolTaskExecutor,spring中的线程池,因为他能帮助我们等队列里任务执行完再停机。保证任务不丢失.   </p>
+<h3 id="异常捕获"><a href="#异常捕获" class="headerlink" title="异常捕获"></a>异常捕获</h3><p>我们的项目的线程池,就是线程运行抛异常了，要处理.传统模式下线程,如果一个异常未被捕获，从线程中抛了出来。JVM会回调一个方法dispatchUncaughtException,这个方法打印异常信息，然后退出线程。<br>我们要做的就是给线程添加一个异常捕获处理器，以后抛了异常，就给它转成error日志。这样才能及时发现问题。<br>但是我们用的是线程池.这种就用不了,线程池是用线程工厂创建的线程,我们无法直接给线程添加异常处理器.<br>看了线程工厂的源码,发现线程池创建线程时,会调用线程工厂的newThread方法,这个方法可以返回一个线程,我们可以写一个线程工厂的类,继承线程工厂重写newThread这个方法,在线程创建后,给线程添加异常处理器.但是我们要写很多创建线程的逻辑<br>所以我们可以用装饰者模式,在线程池创建线程时,用装饰者模式包装线程工厂,调用它的线程创建后，再扩展设置我们的异常捕获</p>
+<pre><code>public class MyThreadFactory implements ThreadFactory &#123;
+
+    private ThreadFactory original;
+
+    @Override
+    public Thread newThread(Runnable r) &#123;
+        Thread thread = original.newThread(r);
+        thread.setUncaughtExceptionHandler(new MyUncaughtExceptionHandler());//异常捕获
+        return thread;
+    &#125;
+&#125;
+</code></pre>
+<p>第二步，替换spring线程池的线程工厂。</p>
+<hr>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2025 夜晚星漫漫
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;清风
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
